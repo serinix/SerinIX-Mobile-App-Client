@@ -808,6 +808,7 @@ export class WebApiService extends WebApiMockContent implements InMemoryDbServic
   products = [
     {
       id: 6280637,
+      idGroup: 8796751462542,
       name: "smart/tel SAMSUNG SM-J510H Galaxy J5 Duos ZDD (gold)",
       price: 5031,
       oldPrice: 6000,
@@ -833,6 +834,7 @@ export class WebApiService extends WebApiMockContent implements InMemoryDbServic
     },
     {
       id: 6293680,
+      idGroup: 8796751462542,
       name: "Mob/tel BRAVIS F181 BELL (black)",
       price: 330,
       manufacturerId: 109483,
@@ -851,6 +853,7 @@ export class WebApiService extends WebApiMockContent implements InMemoryDbServic
     },
     {
       id: 6294898,
+      idGroup: 8796751462542,
       name: "smart/tel HUAWEI Y6II Dual Sim (black)",
       price: 3899,
       oldPrice: 4599,
@@ -874,6 +877,7 @@ export class WebApiService extends WebApiMockContent implements InMemoryDbServic
     },
     {
       id: 6325585,
+      idGroup: 8796751462542,
       name: "smart/tel HUAWEI P8 Lite 2017 Dual Sim (white)",
       price: 4299,
       manufacturerId: 114733,
@@ -890,6 +894,7 @@ export class WebApiService extends WebApiMockContent implements InMemoryDbServic
     },
     {
       id: 6324182,
+      idGroup: 8796751462542,
       name: "smart/tel HUAWEI GR5 2017 (BLN-L21) Dual Sim (grey)",
       price: 4199,
       manufacturerId: 114733,
@@ -906,6 +911,7 @@ export class WebApiService extends WebApiMockContent implements InMemoryDbServic
     },
     {
       id: 6252121,
+      idGroup: 8796751462542,
       name: "APPLE iPhone 6s 16GB Space Gray Demo",
       price: 4999,
       manufacturerId: 5581,
@@ -922,6 +928,7 @@ export class WebApiService extends WebApiMockContent implements InMemoryDbServic
     },
     {
       id: 6202929,
+      idGroup: 8796751462542,
       name: "smart/tel SAMSUNG SM-N915F Galaxy Note Edge ZWE (white)",
       price: 4999,
       manufacturerId: 5581,
@@ -938,6 +945,7 @@ export class WebApiService extends WebApiMockContent implements InMemoryDbServic
     },
     {
       id: 6324216,
+      idGroup: 8796751462542,
       name: "smart/tel SAMSUNG SM-A520F Galaxy A5 2017 Duos ZKD (black)",
       price: 3899,
       manufacturerId: 220,
@@ -954,6 +962,7 @@ export class WebApiService extends WebApiMockContent implements InMemoryDbServic
     },
     {
       id: 6324213,
+      idGroup: 8796751462542,
       name: "smart/tel SAMSUNG SM-A720F Galaxy A7 2017 Duos ZDD (gold)",
       price: 5031,
       manufacturerId: 220,
@@ -970,6 +979,7 @@ export class WebApiService extends WebApiMockContent implements InMemoryDbServic
     },
     {
       id: 6161537,
+      idGroup: 8796751462542,
       name: "APPLE iPhone 5S 16Gb Space grey",
       price: 3899,
       manufacturerId: 5581,
@@ -986,6 +996,7 @@ export class WebApiService extends WebApiMockContent implements InMemoryDbServic
     },
     {
       id: 6307814,
+      idGroup: 8796751462542,
       name: "APPLE iPhone 7 32GB Rose Gold",
       price: 3899,
       manufacturerId: 5581,
@@ -1002,6 +1013,7 @@ export class WebApiService extends WebApiMockContent implements InMemoryDbServic
     },
     {
       id: 6343804,
+      idGroup: 8796751462542,
       name: "smart/tel XIAOMI Redmi 4X 2G/16G (black)",
       price: 3899,
       manufacturerId: 118920,
@@ -1018,6 +1030,7 @@ export class WebApiService extends WebApiMockContent implements InMemoryDbServic
     },
     {
       id: 6337167,
+      idGroup: 8796751462542,
       name: "smart/tel XIAOMI Mi Mix 256GB Black",
       price: 3899,
       manufacturerId: 118920,
@@ -1034,6 +1047,7 @@ export class WebApiService extends WebApiMockContent implements InMemoryDbServic
     },
     {
       id: 6291460,
+      idGroup: 8796751462542,
       name: "smart/tel Lenovo C2 Power Dual Sim (black)",
       price: 3899,
       manufacturerId: 107996,
@@ -1050,6 +1064,7 @@ export class WebApiService extends WebApiMockContent implements InMemoryDbServic
     },
     {
       id: 6316576,
+      idGroup: 8796751462542,
       name: "smart/tel LENOVO K6 Power (K33a42) Dual Sim (grey)",
       price: 3899,
       manufacturerId: 107996,
@@ -1066,6 +1081,7 @@ export class WebApiService extends WebApiMockContent implements InMemoryDbServic
     },
     {
       id: 6310491,
+      idGroup: 8796751462542,
       name: "smart/tel WILEYFOX Swift 2 Plus Dual Sim (Champagne Gold)",
       price: 3899,
       manufacturerId: 120815,
@@ -1082,6 +1098,7 @@ export class WebApiService extends WebApiMockContent implements InMemoryDbServic
     },
     {
       id: 6312913,
+      idGroup: 8796751462542,
       name: "smart/tel WILEYFOX Swift 2X Dual Sim (Mid Night blue)",
       price: 3899,
       manufacturerId: 120815,
@@ -1098,6 +1115,7 @@ export class WebApiService extends WebApiMockContent implements InMemoryDbServic
     },
     {
       id: 6363302,
+      idGroup: 8796737044622,
       name: "Телевизор LIBERTON 32HL1HD",
       price: 4599,
       manufacturerId: 120815,
@@ -1114,6 +1132,7 @@ export class WebApiService extends WebApiMockContent implements InMemoryDbServic
     },
     {
       id: 6337781,
+      idGroup: 8796737044622,
       name: "Телевизор SAMSUNG UE32M5500AUXUA",
       price: 13999,
       oldPrice: 14299,

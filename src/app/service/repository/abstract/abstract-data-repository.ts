@@ -36,6 +36,7 @@ import {IDictionary} from "../../../core/app-core";
 export abstract class AbstractDataRepository {
   public async abstract getProductReviewsByProductId(productId: number): Promise<ProductReview[]>;
   public async abstract getProducts(urlQuery: string, cacheForce: boolean): Promise<Product[]>;
+  public async abstract getProductsByGroupId(idGroup: number): Promise<Product[]>;
   public async abstract searchProducts(srchString: string): Promise<Product[]>;
 
   public async abstract getSuppliers(cacheForce: boolean): Promise<Supplier[]>;

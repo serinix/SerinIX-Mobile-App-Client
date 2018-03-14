@@ -46,9 +46,9 @@ export class CategoriesPage extends ComponentBase   {
     }
   }
 
-  onCategoryClick(urlQueryString: string): void {
-    if (urlQueryString)
-      this.navCtrl.push('CategoryPage', urlQueryString); // {animate: true, direction: 'forward', duration: 500});
+  onCategoryClick(categoryId: string): void {
+    if (categoryId)
+      this.navCtrl.push('CategoryPage', categoryId); // {animate: true, direction: 'forward', duration: 500});
   }
 
   public convertImg(imgTxt:string):any {

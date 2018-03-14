@@ -3,8 +3,6 @@ import {Component, OnInit} from '@angular/core';
 import {ComponentBase} from '../../components/component-extension/component-base';
 import {Product} from '../../app/model/product';
 import {AbstractDataRepository} from '../../app/service/repository/abstract/abstract-data-repository';
-import {QuotationProduct} from "../../app/model/quotation-product";
-import {Manufacturer} from "../../app/model/manufacturer";
 
 @IonicPage({name: 'CategoryPage', segment: 'category/:categoryId'})
 @Component({
@@ -45,6 +43,8 @@ export class CategoryPage extends ComponentBase implements OnInit {
 
   async ngOnInit() {
     super.ngOnInit();
+    this.baseProducts = await this.repo.getProductsByGroupId(this.navParams.data);
+    /*
     if (typeof this.navParams.data === "string") {
       this.baseProducts = await this.repo.getProducts(this.navParams.data, true);
     } else if (typeof this.navParams.data === "object") {
@@ -57,6 +57,7 @@ export class CategoryPage extends ComponentBase implements OnInit {
         this.baseProducts = products;
       }
     }
+    */
 
   }
 

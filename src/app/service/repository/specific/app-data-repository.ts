@@ -97,6 +97,7 @@ const storeReviewsByStoreIdUrl = `${AppConstants.BASE_URL}/api/storeplace/GetSto
 const noveltyByIdDynamicUrl = `${AppConstants.BASE_URL}/api/novelty/GetNoveltyById`;
 const noveltiesDynamicUrl = `${AppConstants.BASE_URL}/api/novelty/GetNovelties`;
 const noveltyDetailsDynamicUrl = `${AppConstants.BASE_URL}/api/novelty/GetNoveltyDetailsByNoveltyId`;
+
 //DEV URLS
 // const productDescriptionsUrl = 'api/mproductDescriptions';
 // const currenciesUrl = "/api/mcurrencies";
@@ -1563,6 +1564,57 @@ export class AppDataRepository extends AbstractDataRepository {
       await this.handleError(err);
     }
   }
+
+  public async getProductsByGroupId(idGroup: number): Promise<Product[]> {
+    try {
+        const response = await this.http
+          .get(productsUrl, {
+            search: this.createSearchParams([
+              {key: "idGroup", value: idGroup.toString()}
+            ])
+          })
+          .toPromise();
+
+        const data = response.json();
+        if (response.status !== 200) {
+          throw new Error("server side status error");
+        }
+        const products = new Array<Product>();
+        if (data != null) {
+          data.forEach(val => {
+            let props = new Array<ProductPropValue>();
+            if (val.props && val.props.length !== 0) {
+              props = this.getPropValuefromProduct(val);
+            }
+
+            // create current product
+            const productItem: Product = new Product(
+              val.id,
+              val.name,
+              val.price,
+              val.oldPrice,
+              val.bonuses,
+              val.manufacturerId,
+              props,
+              val.imageUrl,
+              val.rating,
+              val.recall,
+              val.supplOffers,
+              val.slideImageUrls,
+              val.barcode
+            );
+
+            products.push(productItem);
+          });
+        }
+        return products;
+    }
+    catch (err) {
+      return await this.handleError(err);
+    }
+
+  }
+
 
   public async getProducts(urlQuery: string,
                            cacheForce: boolean): Promise<Product[]> {

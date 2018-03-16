@@ -388,7 +388,8 @@ export class AppDataRepository extends AbstractDataRepository {
   public async getDeliveryCost(order: ClientOrderProducts, loEntityId: number, loIdClientAddress: number): Promise<number> {
     try {
       const response = await this.http
-        .post(getDeliveryCostUrl, {order: order.dto, loEntity: loEntityId, loIdClientAddress: loIdClientAddress})
+        .post(getDeliveryCostUrl, {order: order.dto, loEntity: loEntityId, loIdClientAddress: loIdClientAddress},
+          RequestFactory.makeAuthHeader())
         .toPromise();
       const val = response.json();
 

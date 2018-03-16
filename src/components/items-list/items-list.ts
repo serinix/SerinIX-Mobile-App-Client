@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Product} from '../../app/model/product';
+import {ProductShort} from '../../app/model/index';
 import {ComponentBase} from '../component-extension/component-base';
 
 @Component({
@@ -9,7 +9,7 @@ import {ComponentBase} from '../component-extension/component-base';
 
 export class ItemsListComponent extends ComponentBase {
 
-  @Input() products: Product[];
+  @Input() productsShort: ProductShort[];
 
   constructor() {
     super();

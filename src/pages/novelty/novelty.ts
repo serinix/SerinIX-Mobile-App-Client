@@ -42,7 +42,8 @@ export class NoveltyPage extends ItemBase implements OnInit,OnDestroy {
       this.novelty = await this._repo.getNovelty(this.noveltyId);
     }
     if(!this.product) {
-      this.product = await this._repo.getProductById(this.productId);
+      //TODO
+      //this.product = await this._repo.getProductById(this.productId);
     }
     // get dynamic content
     this.content = this.novelty.novelty_content;

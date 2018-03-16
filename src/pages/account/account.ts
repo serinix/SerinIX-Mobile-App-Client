@@ -1,12 +1,11 @@
-import { System } from './../../app/core/app-core';
 import {Component} from '@angular/core';
 import {NavController, IonicPage} from 'ionic-angular';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Currency, User, Lang, IUserInfo} from "../../app/model/index";
-import {AbstractDataRepository} from "../../app/service/index";
+import {AbstractDataRepository} from '../../app/service/index';
 import { AlertController } from 'ionic-angular';
-import {ComponentBase} from "../../components/component-extension/component-base";
-import {Activator} from "../../app/core/app-core";
+import {ComponentBase} from '../../components/component-extension/component-base';
+import {Activator} from '../../app/core/app-core';
 
 @IonicPage({name: 'AccountPage', segment: 'account'})
 @Component({
@@ -103,9 +102,9 @@ export class AccountPage extends ComponentBase {
       return;
     }
 
-      // start block logic for multiple sending        
+      // start block logic for multiple sending
     this.isSendAsync = true;
-      
+
     const data = this.editForm.value;
     const user: User= new User(null,data.email,
       null,null,{'currency': `${this.currentCurrency.id}`, 'lang': `${this.currentLang.id}`},null,this.userService.profile.phone,
@@ -121,7 +120,7 @@ export class AccountPage extends ComponentBase {
             buttons: ['OK'],
             cssClass: 'alertCustomCss'
           });
-         
+
           alert.present();
       } else {
         this.verifyErrorData.errorShow = true;

@@ -24,6 +24,8 @@ export class ItemDetailPage extends ItemBase implements OnInit {
   minLoanAmt = AppConstants.MIN_LOAN_AMT;
   maxLoanAmt = AppConstants.MAX_LOAN_AMT;
   description: string;
+  slideImageUrls = new Array<string>();
+
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -34,14 +36,20 @@ export class ItemDetailPage extends ItemBase implements OnInit {
     this.product = this.navParams.data.prod;
     this.preloadQuotes = this.navParams.data.loadQuotes;
     this.qty.value = 1;
+
     repo.getProductImages(this.product.id).then(
-        x =>
-          this.product.slideImageUrls = x
+      x =>
+      {
+        this.slideImageUrls = x;
+      }
     );
+
   }
 
   async ngOnInit() {
     super.ngOnInit();
+
+
     this.repo.getProductReviewsByProductId(this.product.id).then( x => {
         this.reviews = x;
       }

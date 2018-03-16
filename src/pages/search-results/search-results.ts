@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {Product} from '../../app/model/product';
+import {ProductShort} from '../../app/model/index';
 import {SearchService} from '../../app/service/search-service';
 import {ComponentBase} from '../../components/component-extension/component-base';
 
@@ -12,7 +12,7 @@ import {ComponentBase} from '../../components/component-extension/component-base
 })
 export class SearchResultsPage extends ComponentBase implements OnInit {
 
-  public baseProducts = new Array<Product>();
+  public baseProducts = new Array<ProductShort>();
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public srchService: SearchService) {

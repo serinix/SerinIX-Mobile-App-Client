@@ -1,13 +1,13 @@
 import {Input, OnInit} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import {ComponentBase} from './component-base';
-import {Product, ProductStorePlace, QuotationProduct} from '../../app/model/index';
+import {Product, ProductStorePlace, QuotationProduct, ProductShort} from '../../app/model/index';
 import {AbstractDataRepository} from '../../app/service/repository/abstract/abstract-data-repository';
 
 
 export class ItemBase extends ComponentBase implements OnInit {
 
-  @Input() product: Product;
+  @Input() product: ProductShort;
   @Input() preloadQuotes: boolean = false;
 
   quotes: QuotationProduct[];

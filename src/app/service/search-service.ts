@@ -1,5 +1,5 @@
 import {EventEmitter, Injectable} from '@angular/core';
-import {Product} from '../model/product';
+import {ProductShort} from '../model/index';
 import {AbstractDataRepository} from './repository/abstract/abstract-data-repository';
 
 
@@ -9,7 +9,7 @@ export class SearchService {
   private cKey = 'searchItems';
   private cMaxSearchItemsCount = 15;
   public searchItems = new Array<string> ();
-  public searchResults: Promise<Product[]>;
+  public searchResults: Promise<ProductShort[]>;
   private _ls: string = '';
   private progressBarIsActive = false;
 
@@ -41,7 +41,7 @@ export class SearchService {
 
   lastSearchStringUpdated = new EventEmitter<string>();
 
-  searchProducts(srchString: string): Promise<Product[]> {
+  searchProducts(srchString: string): Promise<ProductShort[]> {
     this.progressBarIsActive = true;
     this.lastSearch = srchString;
 

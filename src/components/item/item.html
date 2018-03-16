@@ -1,12 +1,5 @@
 <ion-grid class="f-no-padding" (click)="openItemDetails(product)">
-<!--
-  <ion-row no-padding>
-    <ion-col col-auto>
-      <span class="f-size-small"></span> &lt;!&ndash; Badge placeholder &ndash;&gt;
-    </ion-col>
-  </ion-row>
--->
-  <ion-row>
+<ion-row>
    <ion-col col-auto>
      <div *ngIf="product.imageUrl" lazy-load-images>
        <img class="f-img-item" [attr.data-src]="product.imageUrl">

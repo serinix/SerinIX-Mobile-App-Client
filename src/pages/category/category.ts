@@ -1,7 +1,7 @@
 import {IonicPage, NavController, NavParams, ActionSheetController, ModalController} from 'ionic-angular';
 import {Component, OnInit} from '@angular/core';
 import {ComponentBase} from '../../components/component-extension/component-base';
-import {Product} from '../../app/model/product';
+import {ProductShort} from '../../app/model/index';
 import {AbstractDataRepository} from '../../app/service/repository/abstract/abstract-data-repository';
 
 @IonicPage({name: 'CategoryPage', segment: 'category/:categoryId'})
@@ -12,7 +12,7 @@ import {AbstractDataRepository} from '../../app/service/repository/abstract/abst
 
 export class CategoryPage extends ComponentBase implements OnInit {
 
-  public baseProducts: Product[];
+  public baseProducts: ProductShort[];
 
   public slides = [
     {

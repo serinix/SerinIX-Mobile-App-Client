@@ -57,3 +57,5 @@ export * from './category';
 export * from './measure-unit';
 export * from './region';
 export * from './change-password';
+export * from './product-short';
+export * from './product-prop-value-short';

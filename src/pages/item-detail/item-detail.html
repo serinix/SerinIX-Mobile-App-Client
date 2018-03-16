@@ -16,13 +16,13 @@
 
     <ion-row>
 
-      <ion-col text-center *ngIf="product?.slideImageUrls && product?.slideImageUrls?.length === 0">
+      <ion-col text-center *ngIf="resolved && slideImageUrls.length === 0">
         <img *ngIf="product?.imageUrl" class="f-img-item-lg" [src]="product.imageUrl">
         <img *ngIf="!product?.imageUrl" class="f-img-item-lg" src="assets/imgs/nophoto.png">
       </ion-col>
-      <ion-col text-center *ngIf="!(product?.slideImageUrls?.length === 0) && product?.slideImageUrls">
+      <ion-col text-center *ngIf="resolved && !(slideImageUrls.length === 0)">
         <ion-slides pager>
-          <ion-slide *ngFor="let slide of product.slideImageUrls">
+          <ion-slide *ngFor="let slide of slideImageUrls">
             <img src="{{ slide }}" alt="">
           </ion-slide>
         </ion-slides>

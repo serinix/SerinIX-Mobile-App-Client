@@ -39,7 +39,9 @@ import {
   ClientPollAnswer, CreditProduct, ClientBonus, PersonInfo,
   LoTrackLog,
   Category,
-  MeasureUnit
+  MeasureUnit,
+  ProductShort,
+  ProductPropValueShort
 } from '../../../model/index';
 
 import { AbstractDataRepository } from '../../index';
@@ -1466,7 +1468,7 @@ export class AppDataRepository extends AbstractDataRepository {
     //return ((textToSearch) && !(textToSearch.toLowerCase().indexOf(srchVal.toLowerCase()) == -1));
   }
 
-  public async searchProducts(srchString: string): Promise<Product[]> {
+  public async searchProducts(srchString: string): Promise<ProductShort[]> {
     //TODO This method should be implemented in back end in production mode!
     try {
       if (!AppConstants.USE_PRODUCTION) {
@@ -1475,38 +1477,35 @@ export class AppDataRepository extends AbstractDataRepository {
           if (response.status !== 200) {
             throw new Error("server side status error");
           }
-          const products = new Array<Product>();
+          const products = new Array<ProductShort>();
 
           if (data != null) {
             for (let val of data) {
-              let props = new Array<ProductPropValue>();
+              let props = new Array<ProductPropValueShort>();
               if (val.props && val.props.length !== 0) {
-                props = this.getPropValuefromProduct(val);
+                props = this.getPropValuefromProductShort(val);
               }
 
               // create current product
-              const productItem: Product = new Product(
+              const productItem: ProductShort = new ProductShort(
                 val.id,
                 val.name,
                 val.price,
                 val.oldPrice,
                 val.bonuses,
-                val.manufacturerId,
+                val.mnfId,
                 props,
                 val.imageUrl,
                 val.rating,
                 val.recall,
-                val.supplOffers,
-                val.slideImageUrls,
-                val.barcode
+                val.supplOffers
               );
 
               let mnf = await (<any>productItem).manufacturer_p;
               if (
                 this.search(mnf.name, srchString) ||
                 this.search(productItem.id.toString(), srchString) ||
-                this.search(productItem.name, srchString) ||
-                this.search(productItem.barcode, srchString)
+                this.search(productItem.name, srchString)
               ) {
                 products.push(productItem);
               }
@@ -1528,30 +1527,28 @@ export class AppDataRepository extends AbstractDataRepository {
           throw new Error("server side status error");
         }
 
-        const products = new Array<Product>();
+        const products = new Array<ProductShort>();
 
         if (data != null) {
           for (let val of data) {
-            let props = new Array<ProductPropValue>();
+            let props = new Array<ProductPropValueShort>();
             if (val.props && val.props.length !== 0) {
-              props = this.getPropValuefromProduct(val);
+              props = this.getPropValuefromProductShort(val);
             }
 
             // create current product
-            const productItem: Product = new Product(
+            const productItem: ProductShort = new ProductShort(
               val.id,
               val.name,
               val.price,
               val.oldPrice,
               val.bonuses,
-              val.manufacturerId,
+              val.mnfId,
               props,
               val.imageUrl,
               val.rating,
               val.recall,
-              val.supplOffers,
-              val.slideImageUrls,
-              val.barcode
+              val.supplOffers
             );
             products.push(productItem);
           }
@@ -1565,7 +1562,37 @@ export class AppDataRepository extends AbstractDataRepository {
     }
   }
 
-  public async getProductsByGroupId(idGroup: number): Promise<Product[]> {
+  private getPropValuefromProductShort(product: ProductShort): Array<ProductPropValueShort> {
+    const props = new Array<ProductPropValueShort>();
+    product.props.forEach(val => {
+      /*
+      let enumVal =
+        val.prop_Value_Enum !== null
+          ? new PropEnumList(
+          val.prop_Value_Enum.id,
+          this.getSingleProp(val.prop_Value_Enum.id_Prop),
+          val.prop_Value_Enum.name,
+          val.prop_Value_Enum.list_Index,
+          val.prop_Value_Enum.bit_Index,
+          val.prop_Value_Enum.url
+          )
+          : null;
+      */
+      props.push(
+        new ProductPropValueShort(
+          val.idProp,
+          val.pVal,
+          val.mUnit,
+          val.idx
+        )
+      );
+    });
+
+    return props;
+  }
+
+
+  public async getProductsByGroupId(idGroup: number): Promise<ProductShort[]> {
     try {
         const response = await this.http
           .get(productsUrl, {
@@ -1579,29 +1606,27 @@ export class AppDataRepository extends AbstractDataRepository {
         if (response.status !== 200) {
           throw new Error("server side status error");
         }
-        const products = new Array<Product>();
+        const products = new Array<ProductShort>();
         if (data != null) {
           data.forEach(val => {
-            let props = new Array<ProductPropValue>();
+            let props = new Array<ProductPropValueShort>();
             if (val.props && val.props.length !== 0) {
-              props = this.getPropValuefromProduct(val);
+              props = this.getPropValuefromProductShort(val);
             }
 
             // create current product
-            const productItem: Product = new Product(
+            const productItem: ProductShort = new ProductShort(
               val.id,
               val.name,
               val.price,
               val.oldPrice,
               val.bonuses,
-              val.manufacturerId,
+              val.mnfId,
               props,
               val.imageUrl,
               val.rating,
               val.recall,
-              val.supplOffers,
-              val.slideImageUrls,
-              val.barcode
+              val.supplOffers
             );
 
             products.push(productItem);

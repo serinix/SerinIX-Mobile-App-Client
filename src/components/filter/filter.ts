@@ -1,9 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Product} from '../../app/model/product';
-import {ComponentBase} from '../component-extension/component-base';
 import {PopoverController} from 'ionic-angular';
+import {ComponentBase} from '../component-extension/component-base';
 import {FilterPopoverPage} from '../../pages/filter-popover/filter-popover';
-import {Prop, Manufacturer} from '../../app/model/index';
+import {Product, ProductShort, Prop, Manufacturer} from '../../app/model/index';
 import {AbstractDataRepository} from '../../app/service/repository/abstract/abstract-data-repository';
 
 class MnfFilterStruct {
@@ -22,6 +21,7 @@ class MnfFilterStruct {
 
 class PropsFilterStruct {
   constructor(public prop: Prop,
+              public idProp: number,
               public value: any,
               public count: number,
               public isChecked: boolean,
@@ -75,13 +75,13 @@ class FilterCategory {
 })
 export class FilterComponent extends  ComponentBase implements OnInit {
 
-  @Input() filteredProducts: Product[];
+  @Input() filteredProducts: ProductShort[];
 
   @Input() parentComponent: any;
 
   fCategories = new Array<FilterCategory>();
 
-  baseProducts = new Array<Product>();
+  baseProducts = new Array<ProductShort>();
   //initialProducts = new Array<Product>();
   public dataInitialized = false;
 
@@ -152,11 +152,11 @@ export class FilterComponent extends  ComponentBase implements OnInit {
   async initFilterManufacturers() {
     this.mnfFilterCondition = [];
     for (let p of this.baseProducts) {
-      const i = this.filteredManufacturers.findIndex(z => (z.mnf.id == p.manufacturerId));
+      const i = this.filteredManufacturers.findIndex(z => (z.mnf.id == p.mnfId));
       if (i !== -1)
         this.filteredManufacturers[i].count++;
       else {
-        let mnf = new MnfFilterStruct(await this.repo.getManufacturerById(p.manufacturerId), 1, false);
+        let mnf = new MnfFilterStruct(await this.repo.getManufacturerById(p.mnfId), 1, false);
         this.filteredManufacturers.push(mnf);
       }
     }
@@ -171,25 +171,24 @@ export class FilterComponent extends  ComponentBase implements OnInit {
     ////////////////////////////////////////////////////////////////////
   }
 
-  initFilterProps(prodArray: Product[]) {
+  initFilterProps(prodArray: ProductShort[]) {
     this.filteredProps.length = 0;
     prodArray.forEach(p => {
-      p.Props.forEach(a => {
-//        if (a.id_Prop. predestination>0) {
-        // Вьіводим только св-ва для фильтра
-        if ((a.out_bmask & 2) === 2) {
-          const i = this.filteredProps.findIndex(z => ((z.prop.id === a.id_Prop.id)
-                                                                    && (z.value == a.value)));
-          if (i !== -1)
-            this.filteredProps[i].count++;
-          else {
-            const pt = new PropsFilterStruct(a.id_Prop, a.value, 1, false, null, (a.id_Prop.prop_type == 4) ? a.prop_Value_Enum.list_Index : null);
-            this.filteredProps.push(pt);
-          }
+      p.props.forEach(a => {
+
+        const i = this.filteredProps.findIndex(z => ((z.idProp === a.idProp)
+                                                                  && (z.value == a.value)));
+        if (i !== -1)
+          this.filteredProps[i].count++;
+        else {
+          const pt = new PropsFilterStruct(null, a.idProp, a.value, 1, false,
+                                           null, null);
+          this.filteredProps.push(pt);
         }
       });
     });
 
+/*
     this.filteredProps.sort((x, y) => {
       if (x.prop.name.localeCompare(y.prop.name) == 0) {
         if (x.prop.prop_type == 4)
@@ -199,11 +198,13 @@ export class FilterComponent extends  ComponentBase implements OnInit {
       } else
         return x.prop.name.localeCompare(y.prop.name);
     });
+    */
+
     // Заполняем значение название предыдущей группы для создания закладок с названиями групп
     let prevName = null;
     for (let i = 0; i < this.filteredProps.length; i++) {
       this.filteredProps[i].prevPropName = prevName;
-      prevName = this.filteredProps[i].prop.name;
+      prevName = this.filteredProps[i]. prop.name;
     }
   }
 
@@ -220,7 +221,7 @@ export class FilterComponent extends  ComponentBase implements OnInit {
           this.filteredProducts.push(p);
       }
     );
-    this.parentComponent.products = this.filteredProducts;
+    this.parentComponent.productsShort = this.filteredProducts;
   }
 
   onPropsClick(data) {
@@ -246,22 +247,22 @@ export class FilterComponent extends  ComponentBase implements OnInit {
   }
 
 
-  filterByPrice(product: Product, startPrice: number, endPrice: number): boolean {
+  filterByPrice(product: ProductShort, startPrice: number, endPrice: number): boolean {
     //return ((product.price >= startPrice) && (product.price <= endPrice));
     return true;
   }
 
 
-  filterByManufacturer(product: Product, mnfArray: number[]): boolean {
-    return ((mnfArray.length == 0) || (mnfArray.includes(product.manufacturerId)));
+  filterByManufacturer(product: ProductShort, mnfArray: number[]): boolean {
+    return ((mnfArray.length == 0) || (mnfArray.includes(product.mnfId)));
   }
 
-  filterByPropertyValue(product: Product, propsArray: PropFilterCondition[]): boolean {
+  filterByPropertyValue(product: ProductShort, propsArray: PropFilterCondition[]): boolean {
     if (propsArray.length == 0) return true;
 
     let occur = 0;
     propsArray.forEach(x => {
-      let fnd = product.Props.find(y => {return ((y.id_Prop.id === x.propId) && (y.value === x.propVal));});
+      let fnd = product.props.find(y => {return ((y.idProp === x.propId) && (y.value === x.propVal));});
       if (fnd)
         occur++;
     });

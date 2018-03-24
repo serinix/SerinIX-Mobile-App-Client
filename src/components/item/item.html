@@ -1,38 +1,38 @@
-<ion-grid class="f-no-padding" (click)="openItemDetails(product)">
+<ion-grid class="f-no-padding" (click)="openItemDetails(productShort)">
 <ion-row>
    <ion-col col-auto>
-     <div *ngIf="product.imageUrl" lazy-load-images>
-       <img class="f-img-item" [attr.data-src]="product.imageUrl">
+     <div *ngIf="productShort.imageUrl" lazy-load-images>
+       <img class="f-img-item" [attr.data-src]="productShort.imageUrl">
      </div>
-     <img *ngIf="!product.imageUrl" class="f-img-item" src="assets/imgs/nophoto.png">
+     <img *ngIf="!productShort.imageUrl" class="f-img-item" src="assets/imgs/nophoto.png">
    </ion-col>
    <ion-col>
      <ion-grid class="f-item-nopadding-tb">
        <ion-row>
          <ion-col class="f-item-col">
-           <span class="f-size-small">{{product?.manufacturer?.name}}</span>
+           <span class="f-size-small">{{productShort?.manufacturer?.name}}</span>
          </ion-col>
        </ion-row>
        <ion-row>
          <ion-col class="f-item-col f-product">
-           {{product?.name}}
+           {{productShort?.name}}
          </ion-col>
        </ion-row>
 
        <ion-row>
          <ion-col nowrap class="f-item-col">
-           <product-rating [product]=product></product-rating>
+           <product-rating [productShort]=productShort></product-rating>
          </ion-col>
        </ion-row>
        <ion-row>
          <ion-col class="f-item-col f-product">
-           <b>{{product.price | localeCurrency:userService.currency}}</b>
+           <b>{{productShort.price | localeCurrency:userService.currency}}</b>
          </ion-col>
        </ion-row>
 
-       <ion-row *ngIf="product.bonuses">
+       <ion-row *ngIf="productShort.bonuses">
          <ion-col class="f-item-col" >
-           <bonus [bonusCnt]="product.bonuses"></bonus>
+           <bonus [bonusCnt]="productShort.bonuses"></bonus>
          </ion-col>
        </ion-row>
 

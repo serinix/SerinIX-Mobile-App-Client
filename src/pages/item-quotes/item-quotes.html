@@ -7,8 +7,8 @@
     <ion-row>
       <ion-col col-auto>
         <div>
-          <img *ngIf="product?.imageUrl" class="f-img-item" width="60" height="60" [src]="product?.imageUrl">
-          <img *ngIf="!product?.imageUrl" class="f-img-item" width="60" height="60" src="assets/imgs/nophoto.png">
+          <img *ngIf="productShort?.imageUrl" class="f-img-item" width="60" height="60" [src]="productShort?.imageUrl">
+          <img *ngIf="!productShort?.imageUrl" class="f-img-item" width="60" height="60" src="assets/imgs/nophoto.png">
 
         </div>
       </ion-col>
@@ -16,12 +16,12 @@
         <ion-grid class="f-item-nopadding">
           <ion-row>
             <ion-col no-padding class="f-item-padding-bottom">
-              {{product?.name | truncate : 40 }}
+              {{productShort?.name | truncate : 40 }}
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col nowrap no-padding class="f-item-padding-bottom">
-              <product-rating class="rating-large" [product]=product></product-rating>
+              <product-rating class="rating-large" [productShort]=productShort></product-rating>
             </ion-col>
           </ion-row>
         </ion-grid>

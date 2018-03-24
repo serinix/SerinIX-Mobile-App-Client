@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Product} from '../../app/model/product';
+import {ProductShort} from '../../app/model/index';
 import {NavController} from 'ionic-angular';
 import {ItemReviewsPage} from '../../pages/item-reviews/item-reviews';
 
@@ -9,14 +9,14 @@ import {ItemReviewsPage} from '../../pages/item-reviews/item-reviews';
 })
 export class ProductRatingComponent {
 
-  @Input() product: Product;
+  @Input() productShort: ProductShort;
 
   constructor(public navCtrl: NavController) {
   }
 
-  openReviews(event: Event, data: Product): void {
+  async openReviews(event: Event, data: ProductShort) {
     event.stopPropagation();
-    this.navCtrl.push(ItemReviewsPage, {product:this.product});
+    this.navCtrl.push(ItemReviewsPage, {product: await (<any>this.productShort).product_p});
   }
 
 

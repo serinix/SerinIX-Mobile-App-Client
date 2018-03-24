@@ -25,6 +25,7 @@ export class ItemDetailPage extends ItemBase implements OnInit {
   maxLoanAmt = AppConstants.MAX_LOAN_AMT;
   description: string;
   slideImageUrls = new Array<string>();
+  dataLoaded = false;
 
 
 
@@ -33,23 +34,20 @@ export class ItemDetailPage extends ItemBase implements OnInit {
               public modalCtrl: ModalController, public toastCtrl: ToastController,
               public evServ: EventService) {
     super(navCtrl, navParams, repo);
-    this.product = this.navParams.data.prod;
+    this.productShort = this.navParams.data.prod;
     this.preloadQuotes = this.navParams.data.loadQuotes;
     this.qty.value = 1;
-
-    repo.getProductImages(this.product.id).then(
+    repo.getProductImages(this.productShort.id).then(
       x =>
       {
         this.slideImageUrls = x;
       }
     );
-
+    this.initData();
   }
 
-  async ngOnInit() {
-    super.ngOnInit();
-
-
+  async initData() {
+    this.product = await (<any>this.navParams.data.prod).product_p;
     this.repo.getProductReviewsByProductId(this.product.id).then( x => {
         this.reviews = x;
       }
@@ -60,6 +58,12 @@ export class ItemDetailPage extends ItemBase implements OnInit {
     );
     if (this.userService.isAuth)
       this.repo.postProductView(this.product.id, null);
+    this.dataLoaded = true;
+  }
+
+  async ngOnInit() {
+    super.ngOnInit();
+
   }
 
   onShowProductDescription(): void {
@@ -90,8 +94,8 @@ export class ItemDetailPage extends ItemBase implements OnInit {
     }
   }
 
-  onShowMoreQuotesClick(): void {
-    this.navCtrl.push('ItemQuotesPage', {prod: this.product, quotesArr: this.quotes});
+  onShowMoreQuotesClick() {
+    this.navCtrl.push('ItemQuotesPage', {prod: this.productShort, quotesArr: this.quotes});
   }
 
   async onAddToCart() {

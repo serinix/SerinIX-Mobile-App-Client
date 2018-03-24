@@ -7,8 +7,10 @@ import {AbstractDataRepository} from '../../app/service/repository/abstract/abst
 
 export class ItemBase extends ComponentBase implements OnInit {
 
-  @Input() product: ProductShort;
+  @Input() product: Product;
+  @Input() productShort: ProductShort;
   @Input() preloadQuotes: boolean = false;
+
 
   quotes: QuotationProduct[];
   valueQuot: QuotationProduct;
@@ -21,7 +23,10 @@ export class ItemBase extends ComponentBase implements OnInit {
     if (this.valueQuot)
       return this.valueQuot.price;
     else
-      return this.product.price;
+      if (this.product)
+        return this.product.price
+      else
+        return this.productShort.price;
   }
 
   public get OnStock(): boolean {
@@ -38,14 +43,17 @@ export class ItemBase extends ComponentBase implements OnInit {
     if ((this.preloadQuotes) && this.quotes) {
       return this.quotes.filter((i) => {return (i.stockQuant>0);}).length;
     } else {
-      return this.product.supplOffers;
+      if (this.product)
+        return this.product.supplOffers
+      else
+        return this.productShort.supplOffers;
     }
   }
 
   async ngOnInit() {
     super.ngOnInit();
     if (this.preloadQuotes) {
-      this.quotes = await this.repo.getQuotationProductsByProductId(this.product.id);
+      this.quotes = await this.repo.getQuotationProductsByProductId(this.productShort.id);
       this._noOfQuotes = this.quotes.filter((i) => {return (i.stockQuant>0);}).length;
 
       // Возвращаем предложение с минимальной ценой

@@ -23,8 +23,7 @@ export class ItemComponent extends ItemBase {
 
   async openItemDetails(data: ProductShort)
   {
-    let prod = await (<any>data);
-    this.navCtrl.push('ItemDetailPage', {prod: prod, loadQuotes: true});
+    this.navCtrl.push('ItemDetailPage', {prod: data, loadQuotes: true});
   }
 
 }

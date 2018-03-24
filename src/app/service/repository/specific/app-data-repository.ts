@@ -1483,7 +1483,7 @@ export class AppDataRepository extends AbstractDataRepository {
           if (data != null) {
             for (let val of data) {
               let props = new Array<ProductPropValueShort>();
-              if (val.props && val.props.length !== 0) {
+              if (val.Props && val.Props.length !== 0) {
                 props = this.getPropValuefromProductShort(val);
               }
 
